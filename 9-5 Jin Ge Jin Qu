@@ -1,0 +1,37 @@
+#include<iostream>
+#include<cstring>
+#include<cmath>
+
+using namespace std;
+int sing[51];
+int map[10000];
+
+int main()
+{
+	int T;
+	cin>>T;
+	for(int j=1;j<=T;j++){
+		int n,t;
+		memset(map,0,sizeof(map));
+		cin>>n>>t;
+		for(int i=1;i<=n;i++){
+			cin>>sing[i];
+		}	
+		for(int i=1;i<=n;i++){
+			for(int k=t-1;k-sing[i]>=0;k--){
+				if(k-sing[i] == 0 || map[k-sing[i]] != 0){
+					map[k] = max(map[k],map[k-sing[i]]+1);
+				}
+			}
+		}
+		int tot = 0;
+		int maxm = 0;
+		for(int i=t-1;i>=0;i--){
+			if(maxm < map[i]) {
+			    maxm = map[i];
+			    tot = i;
+			}
+		}
+		cout<<"Case "<<j<<": "<<maxm+1<<" "<<tot+678<<endl;
+	}
+ } 

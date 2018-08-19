@@ -1,0 +1,87 @@
+#include<cstdio>
+#include<sstream>
+#include<iostream>
+#include<cstring>
+#include<cmath>
+#include<algorithm>
+using namespace std;
+
+int A[31];
+int B[31];
+
+int cur;
+void reversex(int);
+int findx(int);
+int n;
+int main()
+{
+
+	string s;
+	while(getline(cin,s)){
+		memset(A,0,sizeof(A));
+		memset(B,0,sizeof(B));
+		n = 0;
+		cout<<s<<"\n";
+		stringstream ss(s);
+		
+		while(ss >> A[n]) {
+			B[n] = A[n];
+		    n++;
+		}
+		sort(B,B+n);
+		cur = n-1;
+		while(cur != 0){
+			if(B[cur] != A[cur]){
+				int ind = findx(B[cur]);
+				//cout<<"ind "<<ind<<endl;
+				//cout<<"n "<<n<<endl;
+				//cout<<"cur "<<cur<<endl;
+				if(ind != 0){
+					cout<<n-ind<<" "<<n-cur<<" ";
+					reversex(ind);
+					reversex(cur);
+				}
+				else if(ind == 0) {
+				    cout<<n-cur<<" ";
+				    reversex(cur);
+				}
+				
+				//for(int i=0;i<n;i++) cout<<A[i]<<" ";
+			    //cout<<endl<<endl;
+				
+			}
+			cur --;
+		    //for(int i=0;i<n;i++) cout<<A[i]<<" ";
+		    //cout<<endl;
+		}
+		cout<<0<<endl;
+	}	
+ } 
+ 
+int findx(int k)
+{
+ 	for(int i=0;i<=n-1;i++){
+ 		if(k == A[i]) return i;
+	 }
+}
+ 
+void reversex(int j)
+{
+	int C[30+1];
+	for(int i=0;i<=j;i++){
+		C[i] = A[i];
+	} 
+	for(int i=0;i<=j;i++){
+		A[i] = C[j-i];
+	//	cout<<A[i]<<" ";
+	}
+	//cout<<endl;
+	
+	
+	
+	
+	
+	
+	
+}
+ 

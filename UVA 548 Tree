@@ -1,0 +1,74 @@
+#include<iostream>
+#include<cstring>
+#include<cmath>
+#include<sstream>
+using namespace std;
+
+int s1[10001];
+int s2[10001];
+
+void dfs(int ,int ,int ,int);
+int smax;
+int s;
+int n;
+int ik;
+bool read_list(int* a) 
+{
+  string line;
+  if(!getline(cin, line)) return false;
+  stringstream ss(line);
+  n = 0;
+  int x;
+  while(ss >> x) a[n++] = x;
+  return n > 0;
+}
+int main()
+{
+	while(read_list(s1))
+	{
+		int len1 = n;
+		read_list(s2);
+		int len2 = n;
+		
+	
+	  
+		smax = 1000000;
+		s = 0;
+		dfs(0,len1-1,0,len2-1);
+		cout<<ik<<endl;
+	}
+ } 
+ 
+void dfs(int p,int q,int m,int n)
+{
+	//cout<<s<<endl;
+    //cout<<p<<" "<<q<<" "<<m<<"  "<<n<<endl;
+	if(p < 0) return ;
+	if(p > q) return ;
+	if(p == q) {
+	    s += s1[p];
+	    if(smax > s) {
+			smax = s;
+			ik = s1[p];
+		}
+	    s -= s1[p];
+	    return;
+	}
+	int k = s2[n];
+	s += k;
+	int i;
+	for(i=p;i<=q;i++){
+		if(s1[i] == k) break;
+	}
+	dfs(p,i-1,m,m+i-p-1);
+	dfs(i+1,q,m+i-p,n-1);
+	s -=k;
+	
+	
+	
+	
+	
+	
+	
+	
+}

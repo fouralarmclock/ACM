@@ -1,0 +1,45 @@
+#include<iostream>
+#include<cstring>
+#include<cmath>
+
+using namespace std;
+
+long long int s_mul_max;
+int s[19];
+
+int main()
+{
+	int n;
+	int kase = 0;
+	while(cin>>n){
+		//if(kase++) cout<<endl;
+		for(int i=1;i<=n;i++){
+			cin>>s[i];
+		}
+		int s_start,s_end;
+		s_mul_max = -100000;
+		long long int s_mul;
+		for(s_start=1;s_start<=n;s_start++){
+			s_mul = s[s_start];
+			if(s_mul > s_mul_max) s_mul_max = s_mul;
+			for(s_end=s_start+1;s_end<=n;s_end++){
+				s_mul = s_mul*s[s_end];
+				if(s_mul > s_mul_max) s_mul_max = s_mul;
+			}
+		}
+		cout<<"Case #"<<++kase<<": The maximum product is ";
+		if(s_mul_max <= 0) cout<<0<<"."<<endl<<endl;
+		else cout<<s_mul_max<<"."<<endl<<endl;
+		
+		
+		
+		
+		
+		
+	 } 
+	
+	
+	
+	
+	
+}

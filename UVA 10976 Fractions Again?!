@@ -1,0 +1,36 @@
+#include<iostream>
+#include<cstring>
+#include<cmath>
+
+using namespace std;
+
+int ans1[100000];
+int ans2[100000];
+int n;
+int main()
+{
+	int k;
+	while(cin>>k){
+		n = 0;
+		for(int y=k+1;;y++){
+			int d1 = k*y %(y-k);
+			int d2 = k*y /(y-k);
+			if(d1 == 0 && d2 >= y){
+				ans1[n] = y;
+				ans2[n] = d2;
+				n ++;
+			}
+			else if(d1 == 0 && d2 < y){
+				break;
+			}
+			else if(d1 != 0){
+				d2 ++;
+				if(d2 < y) break;
+			}
+		}
+		cout<<n<<endl;
+		for(int i=0;i<n;i++){
+			cout<<"1/"<<k<<" = "<<"1/"<<ans2[i]<<" + "<<"1/"<<ans1[i]<<endl;
+		}	
+	}
+}

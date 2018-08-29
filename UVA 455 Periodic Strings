@@ -1,0 +1,89 @@
+#include<iostream>
+#include<cstring>
+#include<cmath>
+
+using namespace std;
+
+char S[81];
+int odd[80];
+int p[80];
+bool judge(int );
+bool len_is_one();
+int k;
+int main()
+{
+	memset(odd,0,sizeof(odd));
+	for(int i=2;i<=81;i++){
+		if(odd[i] == 0){
+			odd[i] = 1;
+			for(int j=2;j*i<=81;j++){
+				odd[i*j] = -1;
+			}
+		}
+	}
+/*	for(int i=1;i<=300;i++){
+		if(odd[i] == 1) cout<<i<<" ";
+	}*/
+	int T;
+	cin>>T;
+	for(int i=0;i<T;i++){
+		cin>>S;
+		k = strlen(S);
+		if(i != 0) puts("");
+	    if(len_is_one()) cout<<1<<endl;
+		else if(odd[k] == 1){
+			cout<<k<<endl;
+		}
+		else{
+			int y = 0;
+			int ind = 1;
+			for(int j=2;j<=k/2;j++){
+				if(k%j == 0){
+					p[ind] = j;
+					ind ++;
+				}
+			}
+			//for(int j=1;j<ind;j++) cout<<p[j]<<" ";
+			//cout<<endl;
+			for(int j=1;j<ind;j++){
+				if(judge(p[j])){
+					y = 1;
+				    cout<<p[j]<<endl;
+					break;
+				}
+			}
+			if(y == 0) cout<<k<<endl;
+			
+			
+			}
+			
+		}
+}
+
+bool len_is_one()
+{
+	for(int i=1;i<=k-1;i++){
+		if(S[i] != S[0]) return false;
+	}
+	return true;
+}
+bool judge(int loop_len)
+{
+    int yes_flag = -1;
+	for(int i=1;;i++){
+		for(int j=loop_len*i;j<=loop_len*(i+1)-1;j++){
+			//cout<<S[j-loop_len*i]<<"   "<<S[j]<<endl;
+			if(S[j-loop_len*i] != S[j]){
+				yes_flag = 0;
+				break;
+			}
+			if(S[j-loop_len*i] == S[j] && j == k-1){
+				yes_flag = 1;
+				break;
+			}
+		}
+		if(yes_flag == 0 || yes_flag == 1) break;
+	}
+	if(yes_flag == 0) return false;
+	if(yes_flag == 1) return true;
+}

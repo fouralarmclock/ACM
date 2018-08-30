@@ -1,0 +1,91 @@
+#include<iostream>
+#include<cstring>
+#include<cmath>
+#include<algorithm>
+using namespace std;
+
+int map[105][105];
+char s[105];
+int nums(int,int);
+void print(int,int);
+void readline(char*);
+int main()
+{
+	int T;
+	readline(s);
+	sscanf(s,"%d",&T);
+	readline(s);
+	for(int i=1;i<=T;i++){
+		readline(s);
+		int len = strlen(s);
+		for(int k=0;k<len;k++){
+			for(int j=0;j<len;j++){
+				map[k][j] = 50000;
+			}
+		}
+		nums(0,len-1);
+		//cout<<map[0][len-1]<<endl;
+	    print(0,len-1);
+	    if(i != T) cout<<endl<<endl; 
+	    else cout<<endl;
+	    readline(s);
+	}
+}
+void readline(char* S){
+	fgets(S,105,stdin);
+}
+int nums(int begin,int end){
+	if(end < begin) return 0;
+	if(map[begin][end] != 50000) return map[begin][end];
+	if(begin == end){
+		map[begin][end] = 1;
+		return map[begin][end];
+	}
+	if(s[begin] == '(' && s[end] == ')') map[begin][end] = min(map[begin][end],nums(begin+1,end-1));
+	if(s[begin] == '[' && s[end] == ']') map[begin][end] = min(map[begin][end],nums(begin+1,end-1));
+	for(int i=begin;i<end;i++){
+		map[begin][end] = min(map[begin][end],nums(begin,i)+nums(i+1,end));
+	}
+	return map[begin][end];
+}
+void print(int begin,int end)
+{
+	if(end < begin) return;
+	if(begin == end){
+		if(s[begin] == '(' || s[begin] == ')') cout<<"()";
+		if(s[begin] == '[' || s[begin] == ']') cout<<"[]";
+	}
+	if(end == begin+1 && s[begin] == '(' && s[end] == ')'){
+		printf("()");
+		
+	}
+	else if(end == begin+1 && s[begin] == '[' && s[end] == ']'){
+		printf("[]");
+		return ;
+	}
+	else if(s[begin] == '(' && s[end] == ')' && map[begin][end] == map[begin+1][end-1]){
+		printf("(");
+		print(begin+1,end-1);
+		printf(")");
+		return ;
+	} 
+	else if(s[begin] == '[' && s[end] == ']' && map[begin][end] == map[begin+1][end-1]){
+		printf("[");
+		print(begin+1,end-1);
+		printf("]");
+		return;
+	} 
+	for(int i=begin;i<end;i++){
+		if(map[begin][end] == map[begin][i]+map[i+1][end]){
+			print(begin,i);
+			print(i+1,end);
+			break;
+		}
+		
+	}
+	return ;
+	
+	
+	
+	
+}

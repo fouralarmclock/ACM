@@ -1,0 +1,44 @@
+#include<iostream>
+#include<cstring>
+#include<cmath>
+
+using namespace std;
+int map[10005][10];
+
+int main()
+{
+	memset(map,0,sizeof(map));
+	for(int j=1;j<=10001;j++){
+		for(int i=0;i<=9;i++){
+			map[j][i] = map[j-1][i];
+			
+		}
+		int k=j;
+		while(k != 0){
+			map[j][k%10] ++;
+			k /= 10;
+		}
+	
+		
+	}
+	
+	int T;
+	cin>>T;
+	for(int i=0;i<T;i++){
+		int n;
+		cin>>n;
+		for(int j=0;j<=9;j++){
+			if(j != 9) cout<<map[n][j]<<" ";
+			else cout<<map[n][j]<<endl;
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+}

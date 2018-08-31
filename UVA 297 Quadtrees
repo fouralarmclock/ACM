@@ -1,0 +1,66 @@
+#include<iostream>
+#include<cstring>
+#include<cmath>
+
+using namespace std;
+
+int map[33][33];
+char s1[10000];
+int len_s1;
+char s2[10000];
+int len_s2;
+
+int ind;
+int cnt;
+
+void count(char*,int,int,int,int,int);
+
+int main()
+{
+	int T;
+	cin>>T;
+	for(int j=1;j<=T;j++){
+		memset(map,0,sizeof(map));
+		cin>>s1;
+		cin>>s2;
+		cnt = 0;
+		len_s1 = strlen(s1);
+		len_s2 = strlen(s2);
+		ind = 0;
+		count(s1,len_s1,0,31,0,31);
+		ind = 0;
+		count(s2,len_s2,0,31,0,31);
+		cout<<"There are "<<cnt<<" black pixels."<<endl;
+	}
+}
+
+void count(char*s,int len,int x1,int x2,int y1,int y2){
+
+		if(ind < len){
+		
+		if(s[ind] == 'p'){
+			ind ++;
+			count(s,len,x1,(x1+x2)/2,y1,(y1+y2)/2);
+			count(s,len,(x1+x2)/2+1,x2,y1,(y1+y2)/2);
+			count(s,len,x1,(x1+x2)/2,(y1+y2)/2+1,y2);
+			count(s,len,(x1+x2)/2+1,x2,(y1+y2)/2+1,y2);
+		}
+		else if(s[ind] == 'f'){
+			ind ++;
+			for(int i=x1;i<=x2;i++){
+				for(int j=y1;j<=y2;j++){
+					if(map[i][j] == 0){
+					    cnt ++;
+					    map[i][j] = 1;
+					}
+					
+				}
+			}
+			
+			
+		}
+		else ind ++;
+		}
+	
+	
+} 

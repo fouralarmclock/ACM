@@ -1,0 +1,64 @@
+#include<iostream>
+#include<cmath>
+#include<cstring>
+#include<map>
+#include<set>
+
+
+using namespace std;
+
+char S[100];
+
+int main()
+{
+	map<char,float> mp;
+	mp['C'] = 12.01;
+	mp['H'] = 1.008;
+	mp['O'] = 16.00;
+	mp['N'] = 14.01;
+	char rep[4] = {'C','H','N','O'};
+	set<char> iset(rep,rep+4);
+	
+	int T;
+	cin>>T;
+	for(int i=0;i<T;i++){
+		cin>>S;
+		int len = strlen(S);
+		float sum = 0;
+		for(int k=0;k<len;){
+			if(k == len-1) {
+				sum += mp[S[k]];
+				break;
+			}
+			k ++;
+			if(S[k] <= 9+'0' && S[k] >= '0'){
+				if(k == len-1){
+					sum += mp[S[k-1]]*(S[k]-'0');
+				
+				
+					break;
+				}
+		        k ++;
+				if(S[k] <= 9+'0' && S[k] >= '0'){
+				    int tem = 10*(S[k-1]-'0')+(S[k]-'0');
+				    sum += tem*mp[S[k-2]];
+				    //cout<<sum<<endl;
+				    k ++;
+		    	}
+		    	else{
+		    		int tem = S[k-1]-'0';
+		    		sum += tem*mp[S[k-2]];
+				}
+			}
+			else{
+				sum +=  mp[S[k-1]];
+			}
+	   }
+	   printf("%.3f\n",sum);
+	
+		
+	}
+	
+	
+	
+}

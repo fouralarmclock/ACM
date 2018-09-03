@@ -31,8 +31,8 @@ int main()
 		int w = (1+cnt)*cnt;
 		sum += w/2;
 	
-	   if(i != T-1) cout<<sum<<endl;
-	   else cout<<sum;
+	  cout<<sum<<endl;
+	   
 		
 	
 	} 

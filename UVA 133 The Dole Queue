@@ -1,0 +1,90 @@
+#include<iostream>
+#include<cstring>
+#include<cmath>
+
+using namespace std;
+int A[30];
+int N,m,k;
+
+int main()
+{
+	while(cin>>N>>k>>m){
+		if(N == 0 && k == 0 && m == 0) break;
+		for(int i=0;i<N;i++) A[i] = 1;
+		int head = 0;
+		int tail = N-1;
+		int num_head = 0;
+		int num_tail = 0;
+		int cnt = 0;
+		while(cnt < N){
+			int i,j;
+			int ind;
+			for(i=head;;i++){
+				if(i >= N) i = 0;
+			    if(A[i] == 1){
+			    //	cout<<i<<" ";
+					num_head ++;
+					if(num_head == k){
+						cnt ++;
+						A[i] = -2;
+						//cout<<i<<endl;
+						ind = i;
+						if(i < 9) cout<<"  "<<i+1;
+						else cout<<" "<<i+1;
+						num_head = 0;
+						//if(cnt != N) cout<<",";
+						head = i++;
+						break;
+					}
+				}
+				
+				
+			}
+			if(cnt == N) break;
+
+			for(j=tail;;j--){
+				if(j < 0) j = N-1;
+				if(A[j] == 1){
+					num_tail ++;
+					if(num_tail == m){
+						A[ind] = 0;
+						A[j] = 0;
+						cnt ++;
+						if(j+1 < 10) cout<<"  "<<j+1;
+						else cout<<" "<<j+1;
+						if(cnt != N) cout<<",";
+						num_tail = 0;
+					    tail = j--;
+						break;
+					}
+					
+				}
+				else if(A[j] == -2){
+				
+					num_tail ++;
+					//cout<<"j   "<<j<<endl;
+					//cout<<num_tail<<"   num_tail  "<<endl;
+					if(num_tail == m){
+						if(cnt != N) cout<<",";
+					    num_tail = 0;
+					    A[ind] = 0;
+					    A[j] = 0;
+					    tail = j--;
+					    break;
+			    	    
+					}
+				   
+			}
+		
+				
+		}
+	//	cout<<endl;
+		
+		
+		
+	}
+	cout<<endl;
+	
+	
+    }
+} 

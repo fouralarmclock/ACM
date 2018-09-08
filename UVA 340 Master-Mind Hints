@@ -1,0 +1,71 @@
+#include<iostream>
+#include<cstring>
+#include<cmath>
+using namespace std;
+int A[1005];
+int B[1005];
+
+int N;
+int K1[10];
+int K2[10];
+int main()
+{
+	int T = 1;
+	while(cin>>N){
+		
+		if(N == 0 ) break;
+		memset(K1,0,sizeof(K1));
+		memset(K2,0,sizeof(K2));
+	   
+		for(int i=1;i<=N;i++){
+			cin>>A[i];
+			K1[A[i]] ++;
+			K2[A[i]] ++;
+		}
+		int first = 0;
+		int k;
+		while(cin>>k){
+			int  cor = 0;
+			int  wro = 0;
+			int finish_flag = 0;
+		    B[1] = k;
+		    if(k != 0) finish_flag = 1;
+			for(int i=2;i<=N;i++){
+				cin>>B[i];
+				if(B[i] != 0) finish_flag = 1;
+			}
+			if(finish_flag == 0) break;
+			if(first == 0) {
+				cout<<"Game "<<T++<<":"<<endl;
+				first = 1;
+			}
+ 		    for(int i=1;i<=N;i++){
+ 		    	if(B[i] == A[i]){
+ 		    		cor ++;
+ 		    		K2[A[i]] --;
+				}
+				
+		    }
+		    for(int i=1;i<=N;i++){
+		    	if(B[i] != A[i] && K2[B[i]] != 0){
+		    		K2[B[i]] --;
+		    		wro ++;
+				}
+			}
+			for(int i=1;i<=N;i++){
+				K2[A[i]] = K1[A[i]];
+			}
+		    cout<<"    "<<"("<<cor<<","<<wro<<")"<<endl;
+ 			
+ 			
+ 			
+ 			
+		 }
+		
+	}
+	
+	
+	
+	
+	
+ } 

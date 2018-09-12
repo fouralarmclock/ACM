@@ -1,0 +1,61 @@
+#include<iostream>
+#include<cstring>
+#include<cmath>
+#include<algorithm>
+using namespace std;
+
+int pack[100000+5];
+int head,tail;
+int lim;
+int N;
+
+int main()
+{
+	int T;
+	cin>>T;	
+	for(int i=1;i<=T;i++){
+		cin>>N;
+		cin>>lim;
+		for(int j=1;j<=N;j++) cin>>pack[j];
+		sort(pack+1,pack+1+N);
+		head = 1;
+		tail = N;
+		int sum = pack[head]+pack[tail];
+		int cnt = 0;
+		while(1){
+			if(sum <= lim){
+				cnt ++;
+				head ++;
+				tail --;
+			}
+			else{
+				cnt ++;
+				tail --;
+			}
+			if(head == tail){
+				sum = pack[head];
+			}
+			else if(head < tail){
+				sum = pack[head]+pack[tail];
+			}
+			else if(head > tail){
+				break;
+			}
+		}
+		cout<<cnt<<endl;
+		if(i != T) cout<<endl;
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+}

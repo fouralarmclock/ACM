@@ -1,0 +1,118 @@
+#include<iostream>
+#include<cstring>
+#include<cmath>
+
+using namespace std;
+char S[101];
+char T[101];
+int q[101];
+int main()
+{
+	int kase;
+	cin>>kase;
+	for(int j=1;j<=kase;j++){
+		cin>>S;
+		cin>>T;
+		memset(q,0,sizeof(q));
+		q[0] = 1;
+		int len_s = strlen(S);
+		int len_t = strlen(T);
+		int cnt_s_1 = 0;
+		int cnt_s_2 = 0;
+		int cnt_t = 0;
+		for(int i=0;i<len_s;i++){
+			if(T[i] == '1'){
+				cnt_t ++;
+			}
+			if(S[i] == '?'){
+				q[q[0]] = i;
+				q[0] ++;
+				cnt_s_2 ++;
+			}
+			else if(S[i] == '1'){
+				cnt_s_1 ++;
+			}
+		}
+	//	cout<<"cnt_s_1  "<<cnt_s_1<<endl;
+	//	cout<<"cnt_s_2  "<<cnt_s_2<<endl;
+	//	cout<<"cnt_t  "<<cnt_t<<endl;
+		
+		int ans = 0;
+		if(cnt_s_1 > cnt_t || len_s != len_t){
+			ans = -1;
+		}
+		else if(cnt_s_2 + cnt_s_1 >= cnt_t){
+			int k = cnt_t-cnt_s_1;
+			int flag = -1;
+			if(k == q[0]-1) flag = 1;
+			else if(k == 0) flag = 0;
+			for(int i=1;i<q[0];i++){
+				if(flag == 0){
+					S[q[i]] = '0';
+				}
+				else if(flag == 1){
+					S[q[i]] = '1';
+					
+				}
+				else if(T[q[i]] == '0'){
+					S[q[i]] = '0';
+				}
+				else if(T[q[i]] == '1'){
+					S[q[i]] = '1';
+				
+					k --;
+				}
+				if(k == 0){
+					flag = 0;
+				}
+			//	cout<<"q[0]-i "<<q[0]-i-1<<endl;
+				if(k == q[0]-i-1){
+					flag = 1;
+				}
+			}
+			ans += q[0]-1;
+			int d = 0;
+			int m = 0;
+			for(int i=0;i<len_s;i++){
+				if(S[i] != T[i]){
+					m ++;
+				}
+			}
+		//	cout<<m<<endl;
+			ans += m/2;
+		}
+		else if(cnt_s_1+cnt_s_2 < cnt_t){
+			ans +=cnt_s_2;
+			int cnt_s = cnt_s_1 + cnt_s_2;
+			for(int i=1;i<q[0];i++){
+				if(T[q[i]] == '1'){
+					S[q[i]] = '1';
+				  
+				}
+				else{
+					S[q[i]] = '0';
+				}
+			} 
+		    for(int i=0;i<len_s;i++){
+		    	if(S[i] == '1' && T[i] == '1'){
+		    		cnt_t --;
+				}
+			}
+			
+			ans += cnt_t;
+		}
+	  /*  for(int i=0;i<len_s;i++){
+	    	cout<<S[i];
+		}
+		cout<<endl;
+		for(int i=0;i<len_s;i++){
+	    	cout<<T[i];
+		}
+		cout<<endl;*/
+		cout<<"Case "<<j<<": "<<ans<<endl;
+	}
+	
+	
+	
+	
+}

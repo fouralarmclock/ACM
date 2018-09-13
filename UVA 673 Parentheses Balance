@@ -1,0 +1,49 @@
+#include<iostream>
+#include<cstring>
+#include<cmath>
+#include<stack>
+
+using namespace std;
+stack<char> S;
+char C[128+5];
+
+int main()
+{
+	int T;
+	cin>>T;
+	getchar();
+	for(int i=1;i<=T;i++){
+		gets(C);
+		int len = strlen(C);
+		//cout<<len<<endl;
+		if(len == 0) cout<<"Yes"<<endl;
+		else{
+		
+			for(int j=0;j<len;j++){
+			  //  cout<<"kkkk "<<endl;
+			//	cout<<C[j]<<"      "<<S.top()<<endl;
+			    //if(!S.empty()) cout<<C[j]<<"      "<<S.top()<<endl;
+				if(S.empty()) {
+					S.push(C[j]);
+				//	cout<<C[j]<<endl;
+				}
+				else if(C[j] == ')' && S.top() == '('){
+					S.pop();
+				}
+				else if(C[j] == ']' && S.top() == '['){
+					S.pop();
+				}
+				else{
+				
+					S.push(C[j]);
+				}
+			}
+			if(S.empty()) cout<<"Yes"<<endl;
+			else cout<<"No"<<endl;
+		    while(!S.empty()) S.pop();
+	}
+	}	
+	
+	
+	
+}
